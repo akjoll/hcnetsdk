@@ -35,12 +35,12 @@ public interface DeviceOptions {
     /**
      * 透传.
      */
-    HikResult<PassThroughResponse> passThrough(String url, String data);
+    HikResult<PassThroughResponse> passThrough(String url, String data,boolean haveParameter);
 
     /**
      * 透传.
      */
-    HikResult<PassThroughResponse> passThrough(String url, String data, int exceptOutByteSize);
+    HikResult<PassThroughResponse> passThrough(String url, String data, int exceptOutByteSize,boolean haveParameter);
 
     /**
      * 获取设备配置.

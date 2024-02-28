@@ -37,13 +37,13 @@ public interface DeviceTemplateOptions {
     /**
      * 设备透传, 实现数据获取或配置修改.
      */
-    HikResult<PassThroughResponse> passThrough(long userId, String url, String input);
+    HikResult<PassThroughResponse> passThrough(long userId, String url, String input,boolean haveParameter);
 
     /**
      * 设备透传, 实现数据获取或配置修改.
      */
     HikResult<PassThroughResponse> passThrough(long userId, String url, byte[] inputBytes,
-            int exceptOutByteSize);
+            int exceptOutByteSize,boolean haveParameter);
 
     /**
      * 布防.

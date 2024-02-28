@@ -15,6 +15,8 @@ import com.sun.jna.ptr.ByteByReference;
 import com.sun.jna.ptr.IntByReference;
 import com.sun.jna.ptr.NativeLongByReference;
 import com.sun.jna.ptr.ShortByReference;
+import com.sun.jna.win32.StdCallLibrary;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -5101,6 +5103,18 @@ DVR实现巡航数据结构
     }
 
     boolean NET_DVR_SetRecvTimeOut(int nRecvTimeOut);
+    public static final int NET_SDK_CONFIG_STATUS_SUCCESS = 1000;
+    public static final int NET_SDK_CONFIG_STATUS_NEEDWAIT = 1001;
+    public static final int NET_SDK_CONFIG_STATUS_FINISH = 1002;
+    public static final int NET_SDK_CONFIG_STATUS_FAILED = 1003;
+    public static final int NET_SDK_CONFIG_STATUS_EXCEPTION = 1004;
+
+    boolean NET_DVR_StopRemoteConfig(int lHandle);
+    int NET_DVR_StartRemoteConfig(int lUserID, int dwCommand, Pointer lpInBuffer, int dwInBufferLen, FRemoteConfigCallback cbStateCallback, Pointer pUserData);
+    int NET_DVR_SendWithRecvRemoteConfig(int lHandle, Pointer lpInBuff, int dwInBuffSize, Pointer lpOutBuff, int dwOutBuffSize, IntByReference dwOutDataLen);
+    public static interface FRemoteConfigCallback extends StdCallLibrary.StdCallCallback {
+        public void invoke(int dwType, Pointer lpBuffer, int dwBufLen, Pointer pUserData);
+    }
 }
 
 

@@ -112,14 +112,14 @@ public class HikDeviceTemplate implements DeviceTemplateOptions {
     }
 
     @Override
-    public HikResult<PassThroughResponse> passThrough(long userId, String url, String input) {
+    public HikResult<PassThroughResponse> passThrough(long userId, String url, String input,boolean haveParameter) {
         byte[] bytes = input == null ? null : input.getBytes();
-        return passThrough(userId, url, bytes, 3 * 1024 * 1024);
+        return passThrough(userId, url, bytes, 3 * 1024 * 1024,haveParameter);
     }
 
     @Override
     public HikResult<PassThroughResponse> passThrough(long userId, String url, byte[] inputBytes,
-            int exceptOutByteSize) {
+            int exceptOutByteSize,boolean haveParameter) {
         byte[] urlBytes = url.getBytes();
         inputBytes = (inputBytes == null || inputBytes.length == 0) ? " ".getBytes() : inputBytes;
         // 输入参数
@@ -135,7 +135,7 @@ public class HikDeviceTemplate implements DeviceTemplateOptions {
         inputParams.dwSize = inputParams.size();
         inputParams.lpRequestUrl = urlPointer.getPointer();
         inputParams.dwRequestUrlLen = urlPointer.byString.length;
-        inputParams.lpInBuffer = inputPointer.getPointer();
+        inputParams.lpInBuffer = haveParameter ? inputPointer.getPointer() : null;
         inputParams.dwInBufferSize = inputPointer.byString.length;
         inputParams.write();
 

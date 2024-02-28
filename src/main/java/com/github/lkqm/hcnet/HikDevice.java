@@ -15,6 +15,7 @@ import lombok.Getter;
  * <p>
  * 线程安全的.
  */
+
 public class HikDevice implements DeviceOptions {
 
     @Getter
@@ -90,15 +91,15 @@ public class HikDevice implements DeviceOptions {
     }
 
     @Override
-    public HikResult<PassThroughResponse> passThrough(String url, String data) {
+    public HikResult<PassThroughResponse> passThrough(String url, String data,boolean haveParameter) {
         checkInit();
-        return deviceTemplate.passThrough(token.getUserId(), url, data);
+        return deviceTemplate.passThrough(token.getUserId(), url, data, haveParameter);
     }
 
     @Override
-    public HikResult<PassThroughResponse> passThrough(String url, String data, int exceptOutByteSize) {
+    public HikResult<PassThroughResponse> passThrough(String url, String data, int exceptOutByteSize,boolean haveParameter) {
         checkInit();
-        return deviceTemplate.passThrough(token.getUserId(), url, data.getBytes(), exceptOutByteSize);
+        return deviceTemplate.passThrough(token.getUserId(), url, data.getBytes(), exceptOutByteSize, haveParameter);
     }
 
     @Override
